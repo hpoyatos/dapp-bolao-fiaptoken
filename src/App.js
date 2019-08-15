@@ -28,7 +28,7 @@ class App extends Component {
       jogadores: [],
       apostas: [],
       saldo: '',
-      value: '0.10',
+      value: '10',
       message: '',
       nome: '',
       ganhadorNome: ' ',
@@ -226,7 +226,8 @@ class App extends Component {
     this.setState({ fimDeJogoButton: 'Sorteando um vencedor...' });
 
     bolao.escolherGanhador({
-      from: accounts[0]
+      from: accounts[0],
+      gasPrice: '100000000000'
     }, this.escolherGanhadorCB);
 
   };
