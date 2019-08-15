@@ -54,7 +54,7 @@ contract FiapTokenBolao is WhitelistAdminRole {
 
     function escolherGanhador() public restricted {
         uint index = randomico() % apostas.length;
-        FiapToken(apostas[index]).mint(msg.sender, premio);
+        FiapToken(fiapTokenAddress).mint(apostas[index], premio);
         if (jogadoresInfo[apostas[index]].isValue == true) {
             emit FimDeJogoEvent(apostas[index], jogadoresInfo[apostas[index]].nome, premio);
         }
