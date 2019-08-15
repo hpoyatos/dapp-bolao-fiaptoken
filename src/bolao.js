@@ -1,6 +1,6 @@
 import web3 from './web3';
 
-const address = '0xCcfcd390a774a12B2425786c1cc853D519F85fB6' //ropsten
+const address = '0x29Aa3E99Ea995195BB6F4d374104ff920ED1eE7D' //ropsten
 
 const abi = [
   {
