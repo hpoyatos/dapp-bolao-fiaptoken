@@ -1,7 +1,7 @@
-pragma solidity 0.5.0;
+pragma solidity ^0.5.0;
 
 import "./FiapToken.sol";
-import "openzeppelin-solidity/contracts/access/roles/WhitelistAdminRole.sol";
+import "./WhitelistAdminRole.sol";
 
 
 contract FiapTokenBolao is WhitelistAdminRole {
@@ -92,6 +92,10 @@ contract FiapTokenBolao is WhitelistAdminRole {
 
     function setValorAposta(uint256 _valorAposta) public {
         valorAposta = _valorAposta;
+    }
+
+    function dobrar() public restricted {
+        premio = premio*2;
     }
 
     function limpar() private {

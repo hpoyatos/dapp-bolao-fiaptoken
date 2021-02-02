@@ -50,6 +50,7 @@ class App extends Component {
     this.getJogadorPorIdCB = this.getJogadorPorIdCB.bind(this);
     this.entrarCB = this.entrarCB.bind(this);
     this.escolherGanhadorCB = this.escolherGanhadorCB.bind(this);
+    this.dobrarCB = this.dobrarCB.bind(this);
     this.getSaldoCarteiraCB = this.getSaldoCarteiraCB.bind(this);
 
   }
@@ -122,6 +123,14 @@ class App extends Component {
 
   escolherGanhadorCB(error, response)
   {
+    if (error) {
+      console.error(error);
+    }
+  }
+
+  dobrarCB(error, response)
+  {
+    this.setState({saldo: this.state.saldo*2});
     if (error) {
       console.error(error);
     }
@@ -220,7 +229,8 @@ class App extends Component {
     web3.eth.getBalance(accounts[0], this.getSaldoCarteiraCB);
   };
 
-  onClick = async () => {
+  /* Escolher ganhador */
+  onEscolherGanhadorClick = async () => {
     const accounts = web3.eth.accounts;
 
     this.setState({ fimDeJogoButton: 'Sorteando um vencedor...' });
@@ -231,6 +241,17 @@ class App extends Component {
     }, this.escolherGanhadorCB);
 
   };
+  /* Dobrar */
+  onDobrarClick = async () => {
+    const accounts = web3.eth.accounts;
+
+    bolao.dobrar({
+      from: accounts[0],
+      gasPrice: '100000000000'
+    }, this.dobrarCB);
+
+  };
+
 
   renderPainel()
   {
@@ -243,7 +264,9 @@ class App extends Component {
                       Número do Contrato (Ropsten) <FontAwesomeIcon icon="file-contract" />
                     </div>
                     <div className="mt-2">{this.state.contractNumber}
-                    { web3.eth.accounts[0] === this.state.gerente ? <Button className="btn-sm" variant="danger" onClick={this.onClick}>{this.state.fimDeJogoButton}</Button> : null }</div>
+                    { web3.eth.accounts[0] === this.state.gerente ? <Button className="btn-sm" variant="danger" onClick={this.onEscolherGanhadorClick}>{this.state.fimDeJogoButton}</Button> : null }
+                    &nbsp; { web3.eth.accounts[0] === this.state.gerente ? <Button className="btn-sm" variant="warning" onClick={this.onDobrarClick}>Dobrar</Button> : null }
+                    </div>
                   </div>
                 </div>
               </div>
